@@ -1,6 +1,7 @@
 package hm.binkley.labs.beer;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ public final class BeerController {
     }
 
     @GetMapping("/good-beers")
+    @CrossOrigin("http://localhost:3000")
     public Stream<Beer> goodBeers() {
         return repository.findAll().stream().
                 filter(BeerController::isGreat);
