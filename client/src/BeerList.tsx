@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './App.css';
+import GiphyImage from './GiphyImage';
 
 interface Beer {
   id: number;
@@ -46,7 +47,8 @@ class BeerList extends React.Component<{}, BeerListState> {
         <h2>Beers</h2>
         {beers.map((beer: Beer) => {
           return <div key={beer.id}>
-            {beer.name}
+            {beer.name}<br/>
+            <GiphyImage name={beer.name}/>
           </div>;
         })}
       </div>
