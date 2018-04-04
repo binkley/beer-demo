@@ -20,18 +20,18 @@ class GiphyImage extends React.Component<GiphyImageProps, GiphyImageState> {
   }
 
   componentDidMount() {
-    // TODO: Make Giphy giff
     const giphyApiKey = 'Ft0plfwoQ4IxrR0o4OC4nDb04DHAcBpg';
     const {name} = this.props;
-    const giphyApi = `//api.giphy.com/v1/gifs/search?api_key=${giphyApiKey}&limit=1&offset=0&rating=G&lang=en&q=`;
+    const giphyApi = `//api.giphy.com/v1/gifs/search?api_key=${giphyApiKey}`
+      + `&limit=1&offset=0&rating=G&lang=en&q=${encodeURIComponent(name)}`;
     const dancingCat = '//media.giphy.com/media/YaOxRsmrv9IeA/giphy.gif';
 
-    fetch(giphyApi + encodeURIComponent(name))
+    fetch(giphyApi)
       .then(response => response.json())
-      .then(data => {
-        if (data.length > 0) {
+      .then(json => {
+        if (json) {
           this.setState({
-            giphyUrl: data[0].images.original.url
+            giphyUrl: json.data[0].images.original.url
           });
         } else {
           this.setState({
@@ -51,9 +51,9 @@ class GiphyImage extends React.Component<GiphyImageProps, GiphyImageState> {
       return <p>Loading image...</p>;
     }
 
-    return (
-      <img src={giphyUrl} alt={this.props.name} width="200"/>
-    );
+    return [
+      <img key="image" src={giphyUrl} alt={this.props.name} width="200"/>
+    ];
   }
 }
 
