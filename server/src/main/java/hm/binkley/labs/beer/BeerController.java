@@ -18,7 +18,7 @@ public final class BeerController {
     }
 
     @GetMapping("/good-beers")
-    @CrossOrigin("http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5000"})
     public Stream<Beer> goodBeers() {
         return repository.findAll().stream().
                 filter(BeerController::isGreat);
