@@ -1,12 +1,19 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.0.RELEASE'
+        java_version = '1.8'
+        kotlin_version = '1.2.40-eap-51'
+        springBootVersion = '2.0.1.RELEASE'
     }
     repositories {
         mavenCentral()
         maven { url 'http://repo.spring.io/plugins-release' }
+        maven {
+            url 'http://dl.bintray.com/kotlin/kotlin-eap'
+        }
     }
     dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-noarg:$kotlin_version"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
         classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
     }
@@ -14,7 +21,8 @@ buildscript {
 
 apply plugin: 'propdeps'
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-jpa'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
@@ -24,17 +32,34 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven {
+        url 'http://dl.bintray.com/kotlin/kotlin-eap'
+    }
 }
 
 dependencies {
     compileOnly 'org.projectlombok:lombok'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile 'org.springframework.boot:spring-boot-starter-data-rest'
     compile 'org.springframework.boot:spring-boot-starter-web'
     optional 'org.springframework.boot:spring-boot-devtools'
+    runtime "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     runtime 'com.h2database:h2'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 
 defaultTasks 'clean', 'build'
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = java_version
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = java_version
+    }
+}
