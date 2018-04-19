@@ -1,15 +1,12 @@
 buildscript {
     ext {
         java_version = '1.8'
-        kotlin_version = '1.2.40-eap-62'
+        kotlin_version = '1.2.40'
         springBootVersion = '2.0.1.RELEASE'
     }
     repositories {
         mavenCentral()
         maven { url 'http://repo.spring.io/plugins-release' }
-        maven {
-            url 'http://dl.bintray.com/kotlin/kotlin-eap'
-        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -32,13 +29,9 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven {
-        url 'http://dl.bintray.com/kotlin/kotlin-eap'
-    }
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'

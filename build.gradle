@@ -1,10 +1,7 @@
 defaultTasks 'clean', 'build'
 buildscript {
-    ext.kotlin_version = '1.2.40-eap-51'
+    ext.kotlin_version = '1.2.40'
     repositories {
-        maven {
-            url 'http://dl.bintray.com/kotlin/kotlin-eap'
-        }
         mavenCentral()
     }
     dependencies {
@@ -13,9 +10,6 @@ buildscript {
 }
 apply plugin: 'kotlin'
 repositories {
-    maven {
-        url 'http://dl.bintray.com/kotlin/kotlin-eap'
-    }
     mavenCentral()
 }
 dependencies {
