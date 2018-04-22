@@ -8,13 +8,9 @@ import java.util.stream.Stream
 
 @RestController
 class BeerController(@Autowired private val repository: BeerRepository) {
-    private fun isGreat(beer: Beer): Boolean {
-        return "Budweiser" != beer.name && "Coors Light" != beer.name
-    }
-
     @GetMapping("/good-beers")
     @CrossOrigin(origins = ["http://localhost:3000", "http://localhost:5000"])
     fun goodBeers(): Stream<Beer> {
-        return repository.findAll().stream().filter { isGreat(it) }
+        return repository.findAll().stream().filter { it.quality >= 87 }
     }
 }

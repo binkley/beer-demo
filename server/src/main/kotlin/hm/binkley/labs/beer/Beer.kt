@@ -7,4 +7,5 @@ import javax.persistence.Id
 @Entity
 data class Beer(
         @Id @GeneratedValue val id: Long? = null,
-        val name: String)
+        val name: String,
+        val quality: Int)
