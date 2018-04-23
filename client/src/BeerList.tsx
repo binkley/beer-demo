@@ -5,6 +5,7 @@ import GiphyImage from './GiphyImage';
 interface Beer {
   id: number;
   name: string;
+  quality: number;
 }
 
 interface BeerListState {
@@ -46,8 +47,8 @@ class BeerList extends React.Component<{}, BeerListState> {
     return (
       <div>
         <h2>Beers</h2>
-        {beers.map((beer: Beer) => {
-          return <div key={beer.id}>
+        {beers.map((beer: Beer, index: number) => {
+          return <div key={index}>
             {beer.name}<br/>
             <GiphyImage name={beer.name}/>
           </div>;
