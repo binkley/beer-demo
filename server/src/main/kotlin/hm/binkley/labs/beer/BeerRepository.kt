@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin
 @CrossOrigin
 @RepositoryRestResource
 interface BeerRepository : JpaRepository<Beer, Long> {
-    @RestResource(path = "good-beers")
+    @RestResource(path = "good-beers", rel = "good-beers")
     fun findByQualityGreaterThan(quality: Int): List<Beer>
 }
