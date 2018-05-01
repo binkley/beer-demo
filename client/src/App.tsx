@@ -2,8 +2,6 @@ import * as React from 'react';
 import './App.css';
 import BeerList from './BeerList';
 
-const logo = require('./logo.svg');
-
 interface AppState {
   keyString: string;
 }
@@ -46,11 +44,6 @@ class App extends React.Component<{}, AppState> {
     return (
       <div className="full-screen" tabIndex={0} onClick={this.clearKeyDown} onKeyDown={this.handleKeyDown}>
         <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo"/>
-            <h1 className="App-title">Welcome to React</h1>
-          </header>
-
           <BeerList/>
         </div>
 
