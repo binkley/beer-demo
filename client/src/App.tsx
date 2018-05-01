@@ -8,14 +8,21 @@ interface AppState {
   keyString: string;
 }
 
+const initState = {
+  keyString: 'Nothing.'
+};
+
 class App extends React.Component<{}, AppState> {
   constructor(props: {}) {
     super(props);
 
+    this.clearKeyDown = this.clearKeyDown.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.state = {
-      keyString: 'Nothing.'
-    };
+    this.state = initState;
+  }
+
+  clearKeyDown(event: React.MouseEvent<Element>) {
+    this.setState(initState);
   }
 
   handleKeyDown(event: React.KeyboardEvent<Element>) {
@@ -37,7 +44,7 @@ class App extends React.Component<{}, AppState> {
     const {keyString} = this.state;
 
     return (
-      <div className="full-screen" tabIndex={0} onKeyDown={this.handleKeyDown}>
+      <div className="full-screen" tabIndex={0} onClick={this.clearKeyDown} onKeyDown={this.handleKeyDown}>
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo"/>
