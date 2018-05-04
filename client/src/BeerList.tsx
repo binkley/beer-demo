@@ -31,8 +31,8 @@ class BeerList extends React.Component<{}, BeerListState> {
     fetch('http://localhost:8080/beers/search/good-beers?quality=86')
       .then(response => response.json())
       .then(data => data._embedded.beers)
-      .then(data => this.setState({
-        beers: data,
+      .then(beers => this.setState({
+        beers: beers,
         isLoading: false
       }));
   }
