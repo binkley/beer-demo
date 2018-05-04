@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import GiphyImage from './GiphyImage';
+import { Table } from 'semantic-ui-react';
 
 interface Beer {
   id: number;
@@ -45,16 +46,23 @@ class BeerList extends React.Component<{}, BeerListState> {
     }
 
     return (
-      <div>
-        <h2>Beers</h2>
-        {beers.map((beer: Beer, index: number) => {
-          return <div key={index}>
-            {beer.name}<br/>
-            <GiphyImage name={beer.name}/>
-          </div>;
-        })}
-      </div>
-    );
+      <Table>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Beers</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {beers.map((beer: Beer, index: number) => {
+            return <Table.Row key={index}>
+              <Table.Cell>
+                {beer.name}<br/>
+                <GiphyImage name={beer.name}/>
+              </Table.Cell>
+            </Table.Row>;
+          })}
+        </Table.Body>
+      </Table>);
   }
 }
 
