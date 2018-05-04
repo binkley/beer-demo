@@ -44,7 +44,7 @@ class App extends React.Component<{}, AppState> {
     return (
       <div className="full-screen" tabIndex={0} onClick={this.clearKeyDown} onKeyDown={this.handleKeyDown}>
         <div className="App">
-          <BeerList/>
+          <BeerList loadingMessage={'Loading ...'}/>
         </div>
 
         <div className="center-outer">

@@ -9,24 +9,30 @@ interface Beer {
   quality: number;
 }
 
-interface BeerListState {
-  beers: Array<Beer>;
-  isLoading: boolean;
+interface BeerListProps {
+  loadingMessage: string;
 }
 
-class BeerList extends React.Component<{}, BeerListState> {
-  constructor(props: {}) {
+interface BeerListState {
+  beers: Array<Beer>;
+  loadingMessage: string | null;
+}
+
+class BeerList extends React.Component<BeerListProps, BeerListState> {
+  constructor(props: BeerListProps) {
     super(props);
 
     this.state = {
       beers: [],
-      isLoading: false
+      loadingMessage: null
     };
   }
 
   componentDidMount() {
+    const {loadingMessage} = this.props;
+
     this.setState({
-      isLoading: true
+      loadingMessage: loadingMessage
     });
 
     fetch('http://localhost:8080/beers/search/good-beers?quality=86')
@@ -34,15 +40,15 @@ class BeerList extends React.Component<{}, BeerListState> {
       .then(data => data._embedded.beers)
       .then(beers => this.setState({
         beers: beers,
-        isLoading: false
+        loadingMessage: null
       }));
   }
 
   render() {
-    const {beers, isLoading} = this.state;
+    const {beers, loadingMessage} = this.state;
 
-    if (isLoading) {
-      return <p>Loading...</p>;
+    if (loadingMessage) {
+      return <p>{loadingMessage}</p>;
     }
 
     return (
