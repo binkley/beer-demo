@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import GiphyImage from './GiphyImage';
-import { Ref, Table } from 'semantic-ui-react';
+import { Confirm, Ref, Table } from 'semantic-ui-react';
 
 interface Beer {
   id: number;
@@ -17,6 +17,15 @@ interface BeerListProps {
 interface BeerListState {
   beers: Array<Beer>;
   loadingMessage: string | null;
+  confirm: boolean;
+}
+
+export function BeerCell({beer}: { beer: Beer }) {
+  return (
+    <Table.Cell>
+      <h4>{beer.name}</h4>,
+      <GiphyImage name={beer.name}/>
+    </Table.Cell>);
 }
 
 class BeerList extends React.Component<BeerListProps, BeerListState> {
@@ -24,10 +33,14 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
     super(props);
 
     this.handleSelected = this.handleSelected.bind(this);
+    this.handleToConfirm = this.handleToConfirm.bind(this);
+    this.handleCancelled = this.handleCancelled.bind(this);
+    this.handleConfirmed = this.handleConfirmed.bind(this);
 
     this.state = {
       beers: [],
-      loadingMessage: null
+      loadingMessage: null,
+      confirm: false
     };
   }
 
@@ -55,6 +68,22 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
     this.setState({beers: beers});
   }
 
+  handleToConfirm() {
+    this.setState({confirm: true});
+  }
+
+  handleCancelled() {
+    this.setState({confirm: false});
+  }
+
+  handleConfirmed() {
+    const {beers} = this.state;
+
+    beers.forEach(beer => beer.selected = false);
+
+    this.setState({beers: beers, confirm: false});
+  }
+
   handleKeyDown(index: number, event: React.KeyboardEvent<HTMLElement>) {
     const {
       key,
@@ -78,12 +107,15 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
       case ' ':
         this.handleSelected(index);
         break;
+      case 'Enter':
+        this.handleToConfirm();
+        break;
       default:
     }
   }
 
   render() {
-    const {beers, loadingMessage} = this.state;
+    const {beers, loadingMessage, confirm} = this.state;
 
     if (loadingMessage) {
       return <p>{loadingMessage}</p>;
@@ -91,31 +123,43 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
 
     const handleFocusFirstRow = (index: number, node: HTMLElement) => 0 === index && node.focus();
 
-    return (
-      <Table striped={true} selectable={true}>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Beers</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {beers.map((beer: Beer, index: number) => {
-            return <Ref key={index} innerRef={(node) => handleFocusFirstRow(index, node)}>
-              <Table.Row
-                tabIndex={0}
-                active={beer.selected}
-                onClick={() => this.handleSelected(index)}
-                onKeyDown={this.handleKeyDown.bind(this, index)}
-              >
-                <Table.Cell>
-                  <h3>{beer.name}</h3>
-                  <GiphyImage name={beer.name}/>
-                </Table.Cell>
-              </Table.Row>
-            </Ref>;
-          })}
-        </Table.Body>
-      </Table>);
+    return [
+      (
+        <Table striped={true} selectable={true} key={0}>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Beers</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {beers.map((beer: Beer, index: number) => {
+              return (
+                <Ref
+                  key={index}
+                  innerRef={(node) => handleFocusFirstRow(index, node)}
+                >
+                  <Table.Row
+                    tabIndex={0}
+                    active={beer.selected}
+                    onClick={() => this.handleSelected(index)}
+                    onKeyDown={this.handleKeyDown.bind(this, index)}
+                  >
+                    <BeerCell beer={beer}/>
+                  </Table.Row>
+                </Ref>);
+            })}
+          </Table.Body>
+        </Table>),
+      (
+        <Confirm
+          open={confirm}
+          key={1}
+          cancelButton="No"
+          confirmButton="Yes"
+          content="Drink beers?"
+          onCancel={this.handleCancelled}
+          onConfirm={this.handleConfirmed}
+        />)];
   }
 }
 

@@ -36,13 +36,25 @@ class App extends React.Component<{}, AppState> {
     this.setState({
       keyString: JSON.stringify(keyEvent, null, 2)
     });
+
+    switch (event.key) {
+      case 'F5':
+        this.forceUpdate();
+        break;
+      default:
+    }
   }
 
   render() {
     const {keyString} = this.state;
 
     return (
-      <div className="full-screen" tabIndex={0} onClick={this.clearKeyDown} onKeyDown={this.handleKeyDown}>
+      <div
+        className="full-screen"
+        tabIndex={0}
+        onClick={this.clearKeyDown}
+        onKeyDown={this.handleKeyDown}
+      >
         <div className="App">
           <BeerList loadingMessage={'Loading ...'}/>
         </div>
