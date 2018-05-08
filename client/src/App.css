@@ -7,6 +7,10 @@ h2 {
     margin-top: 0;
 }
 
+table, tr, td {
+    height: 100%;
+}
+
 tr:focus {
     font-style: italic;
 }
@@ -16,6 +20,21 @@ tr:focus {
     min-height: 100vh;
     margin: 0;
     padding: 0;
+}
+
+.cell {
+    position: relative;
+    height: 100%;
+}
+
+.top {
+    position: absolute;
+    top: 0;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0;
 }
 
 .center-outer {

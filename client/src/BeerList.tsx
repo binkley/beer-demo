@@ -20,11 +20,21 @@ interface BeerListState {
   confirm: boolean;
 }
 
-export function BeerCell({beer}: { beer: Beer }) {
+function BeerCell({beer}: { beer: Beer }) {
   return (
     <Table.Cell>
-      <h4>{beer.name}</h4>,
+      <h4>{beer.name}</h4>
       <GiphyImage name={beer.name}/>
+    </Table.Cell>);
+}
+
+function TextCell() {
+  return (
+    <Table.Cell>
+      <div className="cell">
+        <div className="top">Applecore</div>
+        <div className="bottom">Baltimore</div>
+      </div>
     </Table.Cell>);
 }
 
@@ -129,6 +139,7 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Beers</Table.HeaderCell>
+              <Table.HeaderCell>Text</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -145,6 +156,7 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
                     onKeyDown={this.handleKeyDown.bind(this, index)}
                   >
                     <BeerCell beer={beer}/>
+                    <TextCell/>
                   </Table.Row>
                 </Ref>);
             })}
