@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import GiphyImage from './GiphyImage';
-import { Table } from 'semantic-ui-react';
+import { Ref, Table } from 'semantic-ui-react';
 
 interface Beer {
   id: number;
@@ -89,6 +89,8 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
       return <p>{loadingMessage}</p>;
     }
 
+    const handleFocusFirstRow = (index: number, node: HTMLElement) => 0 === index && node.focus();
+
     return (
       <Table striped={true} selectable={true}>
         <Table.Header>
@@ -98,18 +100,19 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
         </Table.Header>
         <Table.Body>
           {beers.map((beer: Beer, index: number) => {
-            return <Table.Row
-              key={index}
-              tabIndex={0}
-              active={beer.selected}
-              onClick={() => this.handleSelected(index)}
-              onKeyDown={this.handleKeyDown.bind(this, index)}
-            >
-              <Table.Cell>
-                <h3>{beer.name}</h3>
-                <GiphyImage name={beer.name}/>
-              </Table.Cell>
-            </Table.Row>;
+            return <Ref key={index} innerRef={(node) => handleFocusFirstRow(index, node)}>
+              <Table.Row
+                tabIndex={0}
+                active={beer.selected}
+                onClick={() => this.handleSelected(index)}
+                onKeyDown={this.handleKeyDown.bind(this, index)}
+              >
+                <Table.Cell>
+                  <h3>{beer.name}</h3>
+                  <GiphyImage name={beer.name}/>
+                </Table.Cell>
+              </Table.Row>
+            </Ref>;
           })}
         </Table.Body>
       </Table>);
