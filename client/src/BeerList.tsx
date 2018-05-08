@@ -22,6 +22,8 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
   constructor(props: BeerListProps) {
     super(props);
 
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+
     this.state = {
       beers: [],
       loadingMessage: null
@@ -44,6 +46,30 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
       }));
   }
 
+  handleKeyDown(event: React.KeyboardEvent<HTMLElement>) {
+    const {
+      key,
+      currentTarget: {
+        previousElementSibling,
+        nextElementSibling
+      }
+    } = event;
+
+    switch (key) {
+      case 'ArrowDown':
+        if (nextElementSibling) {
+          (nextElementSibling as HTMLElement).focus();
+        }
+        break;
+      case 'ArrowUp':
+        if (previousElementSibling) {
+          (previousElementSibling as HTMLElement).focus();
+        }
+        break;
+      default:
+    }
+  }
+
   render() {
     const {beers, loadingMessage} = this.state;
 
@@ -52,7 +78,7 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
     }
 
     return (
-      <Table striped={true}>
+      <Table striped={true} selectable={true}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Beers</Table.HeaderCell>
@@ -60,7 +86,7 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
         </Table.Header>
         <Table.Body>
           {beers.map((beer: Beer, index: number) => {
-            return <Table.Row key={index}>
+            return <Table.Row key={index} tabIndex={0} onKeyDown={this.handleKeyDown}>
               <Table.Cell>
                 {beer.name}<br/>
                 <GiphyImage name={beer.name}/>
