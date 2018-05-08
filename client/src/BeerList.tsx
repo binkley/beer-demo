@@ -52,7 +52,7 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
     }
 
     return (
-      <Table>
+      <Table striped={true}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Beers</Table.HeaderCell>
