@@ -33,7 +33,7 @@ function TextCell() {
     <Table.Cell>
       <div className="cell">
         <div className="top">Applecore</div>
-        <div className="bottom">Baltimore</div>
+        <div className="bottom">{new Date().toLocaleString()}</div>
       </div>
     </Table.Cell>);
 }
