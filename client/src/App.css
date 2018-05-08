@@ -7,6 +7,10 @@ h2 {
     margin-top: 0;
 }
 
+tr:focus {
+    font-style: italic;
+}
+
 .full-screen {
     width: 100%;
     min-height: 100vh;

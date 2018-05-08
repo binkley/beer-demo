@@ -106,7 +106,7 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
               onKeyDown={this.handleKeyDown.bind(this, index)}
             >
               <Table.Cell>
-                {beer.name}<br/>
+                <h3>{beer.name}</h3>
                 <GiphyImage name={beer.name}/>
               </Table.Cell>
             </Table.Row>;
