@@ -28,7 +28,7 @@ function BeerCell({beer}: { beer: Beer }) {
     </Table.Cell>);
 }
 
-function TextCell() {
+function SplitTextCell() {
   return (
     <Table.Cell>
       <div className="cell">
@@ -157,7 +157,7 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
                     onKeyDown={this.handleKeyDown.bind(this, index)}
                   >
                     <BeerCell beer={beer}/>
-                    <TextCell/>
+                    <SplitTextCell/>
                     <Table.Cell className="compare">Text</Table.Cell>
                   </Table.Row>
                 </Ref>);
