@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ReactNode } from 'react';
 import './App.css';
 import GiphyImage from './GiphyImage';
 import { Confirm, Ref, Table } from 'semantic-ui-react';
@@ -28,12 +29,12 @@ function BeerCell({beer}: { beer: Beer }) {
     </Table.Cell>);
 }
 
-function SplitTextCell() {
+function SplitTextCell({top, bottom}: { top: ReactNode, bottom: ReactNode }) {
   return (
     <Table.Cell>
-      <div className="cell">
-        <div className="top">Applecore</div>
-        <div className="bottom">{new Date().toLocaleString()}</div>
+      <div className="split-text-cell">
+        <div className="split-text-cell-top">{top}</div>
+        <div className="split-text-cell-bottom">{bottom}</div>
       </div>
     </Table.Cell>);
 }
@@ -157,7 +158,10 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
                     onKeyDown={this.handleKeyDown.bind(this, index)}
                   >
                     <BeerCell beer={beer}/>
-                    <SplitTextCell/>
+                    <SplitTextCell
+                      top={'Applecore'}
+                      bottom={new Date().toLocaleString()}
+                    />
                     <Table.Cell className="compare">Text</Table.Cell>
                   </Table.Row>
                 </Ref>);
