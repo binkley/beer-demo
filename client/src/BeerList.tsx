@@ -21,23 +21,28 @@ interface BeerListState {
   confirm: boolean;
 }
 
-function BeerCell({beer}: { beer: Beer }) {
-  return (
-    <Table.Cell>
-      <h4>{beer.name}</h4>
-      <GiphyImage name={beer.name}/>
-    </Table.Cell>);
+interface BeerCellProps {
+  beer: Beer;
 }
 
-function SplitTextCell({top, bottom}: { top: ReactNode, bottom: ReactNode }) {
-  return (
-    <Table.Cell>
-      <div className="split-text-cell">
-        <div className="split-text-cell-top">{top}</div>
-        <div className="split-text-cell-bottom">{bottom}</div>
-      </div>
-    </Table.Cell>);
+const BeerCell: React.SFC<BeerCellProps> = ({beer}) => (
+  <Table.Cell>
+    <h4>{beer.name}</h4>
+    <GiphyImage name={beer.name}/>
+  </Table.Cell>);
+
+interface SplitTextCellProps {
+  top: ReactNode;
+  bottom: ReactNode;
 }
+
+const SplitTextCell: React.SFC<SplitTextCellProps> = ({top, bottom}) => (
+  <Table.Cell>
+    <div className="split-text-cell">
+      <div className="split-text-cell-top">{top}</div>
+      <div className="split-text-cell-bottom">{bottom}</div>
+    </div>
+  </Table.Cell>);
 
 class BeerList extends React.Component<BeerListProps, BeerListState> {
   constructor(props: BeerListProps) {
