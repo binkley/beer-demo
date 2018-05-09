@@ -27,6 +27,10 @@ tr:focus {
     height: 100%;
 }
 
+.compare {
+    vertical-align: top;
+}
+
 .top {
     position: absolute;
     top: 0;

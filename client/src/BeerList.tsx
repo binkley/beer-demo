@@ -140,6 +140,7 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
             <Table.Row>
               <Table.HeaderCell>Beers</Table.HeaderCell>
               <Table.HeaderCell>Text</Table.HeaderCell>
+              <Table.HeaderCell>Compare</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -157,6 +158,7 @@ class BeerList extends React.Component<BeerListProps, BeerListState> {
                   >
                     <BeerCell beer={beer}/>
                     <TextCell/>
+                    <Table.Cell className="compare">Text</Table.Cell>
                   </Table.Row>
                 </Ref>);
             })}
