@@ -6,11 +6,9 @@ import KeyDownCapture from './KeyDownCapture';
 class App extends React.Component<{}, {}> {
   render() {
     return (
-      <div className="App">
-        <KeyDownCapture>
-          <BeerList loadingMessage={'Loading ...'}/>
-        </KeyDownCapture>
-      </div>);
+      <KeyDownCapture>
+        <BeerList loadingMessage={'Loading ...'}/>
+      </KeyDownCapture>);
   }
 }
 
