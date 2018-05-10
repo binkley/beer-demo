@@ -15,7 +15,7 @@ tr:focus {
     font-style: italic;
 }
 
-.full-screen {
+.full-screen-event-capture {
     width: 100%;
     min-height: 100vh;
     margin: 0;
