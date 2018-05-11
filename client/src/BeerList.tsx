@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { ReactNode } from 'react';
+import { Confirm, Ref, Table } from 'semantic-ui-react';
 import './App.css';
 import GiphyImage from './GiphyImage';
-import { Confirm, Ref, Table } from 'semantic-ui-react';
 
 interface Beer {
   id: number;
