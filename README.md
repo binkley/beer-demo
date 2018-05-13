@@ -8,6 +8,7 @@ Following [Bootiful Development With Spring Boot and React](https://dzone.com/ar
 
 - [Kotlin with Spring Boot](https://kotlinlang.org/docs/tutorials/spring-boot-restful.html)
 - [Spring REST Data](https://projects.spring.io/spring-data-rest/)
+- Full testing \[TODO\]
 
 ### Client-side
 
@@ -15,5 +16,6 @@ Following [Bootiful Development With Spring Boot and React](https://dzone.com/ar
 - Improved use of Typescript \[In progress\]
 - [React Redux](https://redux.js.org/basics/usage-with-react) \[In progress\]
 - Semantic UI Table with navigation \[In progress\]
+- Full testing \[TODO\]
 - [Redux Form](https://redux-form.com) \[TODO\]
 - [Custom Semantic UI theme](https://semantic-ui.com/usage/theming.html) \[TODO\]
