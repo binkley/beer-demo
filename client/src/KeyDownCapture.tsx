@@ -17,7 +17,17 @@ const initState = {
   keyState: 'Nothing.'
 };
 
-interface KeyDownCaptureProps {
+interface DispatchFromProps {
+  capture(keyState: ReactNode): ActionType<ReactNode>;
+
+  clear(): ActionType<{}>;
+}
+
+interface StateFromProps {
+  keyState: ReactNode;
+}
+
+interface KeyDownCaptureProps extends DispatchFromProps {
   keyState: ReactNode;
 }
 
@@ -34,20 +44,14 @@ export const keyDownCaptureReducer = (state = initState, action: ActionType<{}>)
   }
 };
 
-interface DispatchProps {
-  capture(keyState: ReactNode): ActionType<ReactNode>;
-
-  clear(): ActionType<{}>;
-}
-
-function capture(keyState: ReactNode): ActionType<ReactNode> {
+function captureAction(keyState: ReactNode): ActionType<ReactNode> {
   return {
     type: 'capture',
     payload: keyState
   };
 }
 
-function clear(): ActionType<{}> {
+function clearAction(): ActionType<{}> {
   return {
     type: 'clear'
   };
@@ -59,14 +63,21 @@ class KeyDownCapture extends React.Component<KeyDownCaptureProps, KeyDownCapture
 
     this.clearKeyDown = this.clearKeyDown.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.state = initState;
+
+    const {clear} = this.props;
+
+    clear();
   }
 
   clearKeyDown() {
-    this.setState(initState);
+    const {clear} = this.props;
+
+    clear();
   }
 
   handleKeyDown(event: React.KeyboardEvent<Element>) {
+    const {capture} = this.props;
+
     const keyEvent = {
       key: event.key,
       keyCode: event.keyCode,
@@ -76,9 +87,7 @@ class KeyDownCapture extends React.Component<KeyDownCaptureProps, KeyDownCapture
       shiftKey: event.shiftKey
     };
 
-    this.setState({
-      keyState: JSON.stringify(keyEvent, null, 2)
-    });
+    capture(JSON.stringify(keyEvent, null, 2));
 
     switch (event.key) {
       case 'F5':
@@ -89,8 +98,7 @@ class KeyDownCapture extends React.Component<KeyDownCaptureProps, KeyDownCapture
   }
 
   render() {
-    const {children} = this.props;
-    const {keyState} = this.state;
+    const {children, keyState} = this.props;
 
     return (
       <div
@@ -110,20 +118,20 @@ class KeyDownCapture extends React.Component<KeyDownCaptureProps, KeyDownCapture
 
 type RootStateType = KeyDownCaptureState;
 
-const mapStateToProps = (state: RootStateType): KeyDownCaptureProps => {
+const mapStateToProps = (state: RootStateType): StateFromProps => {
   return {
     keyState: state.keyState
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch): DispatchFromProps => {
   return {
-    capture: (keyState: ReactNode) => dispatch(capture(keyState)),
-    clear: () => dispatch(clear())
+    capture: (keyState: ReactNode) => dispatch(captureAction(keyState)),
+    clear: () => dispatch(clearAction())
   };
 };
 
-export default connect<KeyDownCaptureProps, DispatchProps, {}>(
+export default connect<StateFromProps, DispatchFromProps, {}>(
   mapStateToProps,
   mapDispatchToProps
 )(KeyDownCapture);
