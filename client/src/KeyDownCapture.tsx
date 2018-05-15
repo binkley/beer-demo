@@ -1,3 +1,4 @@
+const autoBind = require('auto-bind');
 import * as React from 'react';
 import { ReactNode } from 'react';
 import { connect, Dispatch } from 'react-redux';
@@ -61,8 +62,7 @@ class KeyDownCapture extends React.Component<KeyDownCaptureProps, KeyDownCapture
   constructor(props: KeyDownCaptureProps) {
     super(props);
 
-    this.clearKeyDown = this.clearKeyDown.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+    autoBind.react(this);
 
     const {clear} = this.props;
 
