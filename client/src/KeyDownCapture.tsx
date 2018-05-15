@@ -64,9 +64,7 @@ class KeyDownCapture extends React.Component<KeyDownCaptureProps, KeyDownCapture
 
     autoBind.react(this);
 
-    const {clear} = this.props;
-
-    clear();
+    this.clearKeyDown();
   }
 
   clearKeyDown() {
@@ -116,9 +114,7 @@ class KeyDownCapture extends React.Component<KeyDownCaptureProps, KeyDownCapture
   }
 }
 
-type RootStateType = KeyDownCaptureState;
-
-const mapStateToProps = (state: RootStateType): StateFromProps => {
+const mapStateToProps = (state: KeyDownCaptureState): StateFromProps => {
   return {
     keyState: state.keyState
   };
